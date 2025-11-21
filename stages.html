@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stages & Alternance - Hocina Lydia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index.html">Lydia Hocina</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">BTS SIO ▾</a>
+                <div class="dropdown-content">
+                    <a href="presentation.html">Présentation</a>
+                    <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+                    <a href="veille.html">Veille technologique</a>
+                </div>
+            </li>
+            <li><a href="parcours.html">Parcours</a></li>
+            <li><a href="stages.html" class="active">Stage / Alternance</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<section id="stages">
+    <div class="section-title">
+        <h1>Stages & alternance</h1>
+        <p>Expériences professionnelles en lien avec le développement et le numérique.</p>
+    </div>
+
+    <div class="stage-card">
+        <h2>Stage de 1ʳᵉ année – Pangée ONG, Ingénierie de paix</h2>
+        <p><strong>Période :</strong> Avril – Mai 2024</p>
+        <p><strong>Lieu :</strong> Paris (présentiel / hybride)</p>
+
+        <ul>
+            <li>Réalisation d’une maquette de site web avec <strong>Figma</strong>.</li>
+            <li>Rédaction d’un <strong>cahier des charges fonctionnel</strong>.</li>
+            <li>Participation à l’amélioration du site existant sous <strong>WordPress</strong>.</li>
+            <li>Approche centrée utilisateur (UX/UI) pour améliorer l’expérience de navigation.</li>
+        </ul>
+    </div>
+
+    <div class="stage-card">
+        <h2>Alternance – Développeuse / Data – SH Consulting</h2>
+        <p><strong>Période :</strong> Mars 2025 – Août 2025</p>
+        <p><strong>Lieu :</strong> Télétravail</p>
+
+        <ul>
+            <li>Réalisation d’un <strong>dictionnaire de données</strong> et structuration des informations.</li>
+            <li>Participation à la <strong>gestion et l’analyse de bases de données</strong>.</li>
+            <li>Organisation et gestion de la <strong>documentation technique</strong> (modèles, fichiers).</li>
+            <li>Utilisation d’outils tels que <strong>SQL</strong>, <strong>Excel</strong>, Google Cloud / BigQuery.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+</script>
+</body>
+</html>

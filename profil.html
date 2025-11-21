@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Hocina Lydia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+    
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index.html">Lydia Hocina</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="profil.html" class="active">Profil</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">BTS SIO ▾</a>
+                <div class="dropdown-content">
+                    <a href="presentation.html">Présentation</a>
+                    <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+                    <a href="veille.html">Veille technologique</a>
+                </div>
+            </li>
+            <li><a href="parcours.html">Parcours</a></li>
+            <li><a href="stages.html">Stage / Alternance</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="certifications.html">Certifications</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<section id="profil">
+    <div class="profile-wrapper">
+        <div class="profile-header">
+            <h1>À propos de moi</h1>
+            <p class="profile-subtitle">Développeuse Web & Mobile – Étudiante en Bachelor CDA</p>
+            <p class="profile-meta">
+                Champigny-sur-Marne (94500) • 22 ans • Alternance développement d’applications
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="profile-text card">
+                <!-- PHOTO DE PROFIL -->
+               <div class="profile-photo">
+    <img src="PHOTOS/profil.png" alt="Photo de Hocina Lydia" onclick="openPhoto()">
+</div>
+
+
+                <p>
+                    Je suis <strong>Lydia Hocina</strong>, étudiante en 
+                    <strong>Bachelor Concepteur Développeur d’Applications</strong> en alternance, 
+                    après un <strong>BTS SIO option SLAM</strong>.
+                </p>
+                <p>
+                    Je m’intéresse particulièrement au <strong>développement web et mobile</strong>, 
+                    à l’UX/UI et à la qualité logicielle. J’aime concevoir des applications 
+                    qui répondent à des besoins concrets tout en restant simples, claires et agréables à utiliser.
+                </p>
+                <p>
+                    Autonome, rigoureuse et avec un bon esprit d’équipe, je suis à l’aise aussi bien 
+                    dans la <strong>conception</strong> (maquettes, cahier des charges, MCD) que dans la 
+                    <strong>réalisation technique</strong> (front-end, back-end, base de données).
+                </p>
+
+                <div class="profile-actions">
+                    <!-- CV -->
+                    <button class="btn" onclick="window.location.href='documents/Lydia.hocina.pdf'">
+                        Télécharger mon CV
+                    </button>
+
+                    <!-- Certifications -->
+                    <button class="btn" onclick="window.open('documents/certifications.pdf', '_blank')">
+                        Voir mes certifications
+                    </button>
+
+                    <!-- Projets -->
+                    <button class="btn-secondary" onclick="window.location.href='projets.html'">
+                        Découvrir mes projets
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Compétences techniques</h2>
+                <h3>Front-end</h3>
+                <div class="tag-list">
+                    <span class="tag">HTML5</span>
+                    <span class="tag">CSS3</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Bootstrap</span>
+                    <span class="tag">React.js</span>
+                </div>
+
+                <h3>Back-end & mobile</h3>
+                <div class="tag-list">
+                    <span class="tag">PHP</span>
+                    <span class="tag">C# / .NET</span>
+                    <span class="tag">React Native</span>
+                    <span class="tag">API REST</span>
+                </div>
+
+                <h3>Bases de données</h3>
+                <div class="tag-list">
+                    <span class="tag">SQL</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+
+                <h3>Outils & méthodes</h3>
+                <div class="tag-list">
+                    <span class="tag">Git / GitHub</span>
+                    <span class="tag">Visual Studio</span>
+                    <span class="tag">VS Code</span>
+                    <span class="tag">Android Studio</span>
+                    <span class="tag">Scrum / Agile</span>
+                    <span class="tag">Merise</span>
+                    <span class="tag">Figma</span>
+                    <span class="tag">Canva</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="photoModal" class="photo-modal" onclick="closePhoto()">
+    <img id="photoModalImg" class="photo-modal-content">
+</div>
+
+
+<footer>
+    <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+    function openPhoto() {
+    const modal = document.getElementById("photoModal");
+    const modalImg = document.getElementById("photoModalImg");
+    modal.style.display = "flex";
+    modalImg.src = "PHOTOS/profil.png";
+}
+
+function closePhoto() {
+    document.getElementById("photoModal").style.display = "none";
+}
+</script>
+</body>
+</html>

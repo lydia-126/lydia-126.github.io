@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Jeu plateforme - Hocina Lydia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Icônes Font Awesome pour le menu mobile -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Zone spécifique au jeu pour ne pas casser le reste du site */
+    #jeu-wrapper {
+      margin: 0;
+      padding: 0;
+      height: calc(100vh - 70px); /* hauteur visible sous le header approx. */
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: lightblue;
+    }
+    #menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .player-controls {
+      margin: 10px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .player-controls h2 {
+      margin-top: 0;
+    }
+    #menu button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #f5f5f5;
+      transition: 0.2s ease;
+    }
+    #menu button:hover {
+      background: #e0e0e0;
+    }
+    #startGame {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 999px;
+      border: none;
+      background: #c85a8f;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    #startGame:hover {
+      background: #9b3d6a;
+      transform: translateY(-2px);
+    }
+    canvas {
+      display: none;
+      background: #87CEEB;
+    }
+    @media (max-width: 900px) {
+      #menu > div {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <a href="index.html">Lydia Hocina</a>
+    </div>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="profil.html">Profil</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">BTS SIO ▾</a>
+        <div class="dropdown-content">
+          <a href="presentation.html">Présentation</a>
+          <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+          <a href="veille.html">Veille technologique</a>
+        </div>
+      </li>
+      <li><a href="parcours.html">Parcours</a></li>
+      <li><a href="stages.html">Stage / Alternance</a></li>
+      <li><a href="projets.html" class="active">Projets</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-mobile">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+</header>
+
+<!-- WRAPPER DU JEU -->
+<div id="jeu-wrapper">
+  <div id="menu">
+    <h1>Jeu de plateforme – Configuration des touches</h1>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+      <div class="player-controls" id="player1-controls">
+        <h2>Joueur 1</h2>
+        <button data-player="1" data-action="left">Gauche: Q</button>
+        <button data-player="1" data-action="right">Droite: D</button>
+        <button data-player="1" data-action="jump">Saut: Z</button>
+        <button data-player="1" data-action="jumpAlt">Saut Alt: Espace</button>
+      </div>
+      <div class="player-controls" id="player2-controls">
+        <h2>Joueur 2</h2>
+        <button data-player="2" data-action="left">Gauche: 1</button>
+        <button data-player="2" data-action="right">Droite: 3</button>
+        <button data-player="2" data-action="jump">Saut: 5</button>
+        <button data-player="2" data-action="jumpAlt">Saut Alt: 2</button>
+      </div>
+      <div class="player-controls" id="player3-controls">
+        <h2>Joueur 3</h2>
+        <button data-player="3" data-action="left">Gauche: J</button>
+        <button data-player="3" data-action="right">Droite: L</button>
+        <button data-player="3" data-action="jump">Saut: I</button>
+        <button data-player="3" data-action="jumpAlt">Saut Alt: K</button>
+      </div>
+      <div class="player-controls" id="player4-controls">
+        <h2>Joueur 4</h2>
+        <button data-player="4" data-action="left">Gauche: Pavé 4</button>
+        <button data-player="4" data-action="right">Droite: Pavé 6</button>
+        <button data-player="4" data-action="jump">Saut: Pavé 8</button>
+        <button data-player="4" data-action="jumpAlt">Saut Alt: Pavé 5</button>
+      </div>
+    </div>
+    <button id="startGame">Jouer</button>
+  </div>
+
+  <canvas id="gameCanvas"></canvas>
+</div>
+
+<footer>
+  <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+  // Menu mobile du site
+  document.querySelector('.menu-mobile').addEventListener('click', () => {
+    document.querySelector('nav ul').classList.toggle('show');
+  });
+</script>
+
+<!-- SCRIPT DU JEU (repris de ta version) -->
+<script>
+  const defaultControls = {
+    1: { left: "KeyA", right: "KeyD", jump: "KeyW", jumpAlt: "Space" },
+    2: { left: "ArrowLeft", right: "ArrowRight", jump: "ArrowUp", jumpAlt: "ArrowDown" },
+    3: { left: "KeyJ", right: "KeyL", jump: "KeyI", jumpAlt: "KeyK" },
+    4: { left: "Numpad1", right: "Numpad3", jump: "Numpad5", jumpAlt: "Numpad2" }
+  };
+
+  const controls = JSON.parse(JSON.stringify(defaultControls));
+  const menu = document.getElementById("menu");
+  const buttons = document.querySelectorAll("#menu button[data-player]");
+  let waitingForKey = null;
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const player = button.dataset.player;
+      const action = button.dataset.action;
+      button.textContent = `Appuyez sur une touche...`;
+      waitingForKey = { button, player, action };
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (waitingForKey) {
+      const { button, player, action } = waitingForKey;
+      controls[player][action] = e.code;
+      button.textContent = `${action.charAt(0).toUpperCase() + action.slice(1)}: ${e.code}`;
+      waitingForKey = null;
+    }
+  });
+
+  document.getElementById("startGame").addEventListener("click", () => {
+    menu.style.display = "none";
+    canvas.style.display = "block";
+    resizeCanvas();
+    startGame();
+  });
+
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let baseWidth = 1200;
+  let baseHeight = 600;
+  let scale = 1;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const scaleX = canvas.width / baseWidth;
+    const scaleY = canvas.height / baseHeight;
+    scale = Math.min(scaleX, scaleY);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+
+  const gravity = 0.5;
+  function createPlayer(x, color) {
+    return {
+      x: x,
+      y: 0,
+      width: 50,
+      height: 50,
+      color: color,
+      velocityX: 0,
+      velocityY: 0,
+      speed: 5,
+      jumpForce: -12,
+      onGround: false
+    };
+  }
+
+  let player1 = createPlayer(50, "red");
+  let player2 = createPlayer(150, "blue");
+  let player3 = createPlayer(250, "green");
+  let player4 = createPlayer(350, "yellow");
+
+  const platforms = [
+    { x: 0, y: baseHeight - 50, width: 400, height: 50, color: "green" },
+    { x: 600, y: baseHeight - 50, width: baseWidth - 600, height: 50, color: "green" },
+    { x: 700, y: 250, width: 300, height: 30, color: "orange" }
+  ];
+
+  const portal = {
+    x: 400,
+    width: 200,
+    bottomY: baseHeight,
+    topY: 0,
+    active: true,
+    effectColor: "rgba(100, 100, 255, 0.2)"
+  };
+
+  const keys = {};
+  document.addEventListener("keydown", (e) => { keys[e.code] = true; });
+  document.addEventListener("keyup", (e) => { keys[e.code] = false; });
+
+  function handleInput(player, control) {
+    if (keys[control.left]) player.velocityX = -player.speed;
+    else if (keys[control.right]) player.velocityX = player.speed;
+    else player.velocityX = 0;
+
+    if ((keys[control.jump] || keys[control.jumpAlt]) && player.onGround) {
+      player.velocityY = player.jumpForce;
+      player.onGround = false;
+    }
+  }
+
+  function checkCollision(a, b) {
+    return (
+      a.x < b.x + b.width &&
+      a.x + a.width > b.x &&
+      a.y < b.y + b.height &&
+      a.y + a.height > b.y
+    );
+  }
+
+  function resolvePushCollision(p1, p2) {
+    if (!checkCollision(p1, p2)) return;
+
+    const dx = (p1.x + p1.width / 2) - (p2.x + p2.width / 2);
+    const dy = (p1.y + p1.height / 2) - (p2.y + p2.height / 2);
+    const width = (p1.width + p2.width) / 2;
+    const height = (p1.height + p2.height) / 2;
+
+    const overlapX = width - Math.abs(dx);
+    const overlapY = height - Math.abs(dy);
+
+    if (overlapX < overlapY) {
+      const pushDir = dx > 0 ? 1 : -1;
+
+      if (pushDir < 0 && p1.velocityX > 0 || pushDir > 0 && p1.velocityX < 0) {
+        p1.x = pushDir > 0 ? p2.x - p1.width : p2.x + p2.width;
+        p1.velocityX = 0;
+      }
+
+      if (pushDir > 0 && p2.velocityX > 0 || pushDir < 0 && p2.velocityX < 0) {
+        p2.x = pushDir > 0 ? p1.x - p2.width : p1.x + p1.width;
+        p2.velocityX = 0;
+      }
+    } else if (dy < 0) {
+      p1.y = p2.y - p1.height;
+      p1.velocityY = 0;
+      p1.onGround = true;
+    } else {
+      p2.y = p1.y - p2.height;
+      p2.velocityY = 0;
+      p2.onGround = true;
+    }
+  }
+
+  let ladderActive = false;
+  let ladder = {
+    x: 840,
+    y: 280,
+    width: 20,
+    height: baseHeight - 50 - 280,
+    color: "#8B4513"
+  };
+
+  const lever = {
+    x: 700 + 300 + 20,
+    y: baseHeight - 80,
+    width: 20,
+    height: 30,
+    color: '#888',
+    handleColor: '#FFD700'
+  };
+
+  function update() {
+    const p1PrevX = player1.x;
+    const p1PrevY = player1.y;
+    const p2PrevX = player2.x;
+    const p2PrevY = player2.y;
+    const p3PrevX = player3.x;
+    const p3PrevY = player3.y;
+    const p4PrevX = player4.x;
+    const p4PrevY = player4.y;
+
+    handleInput(player1, controls[1]);
+    handleInput(player2, controls[2]);
+    handleInput(player3, controls[3]);
+    handleInput(player4, controls[4]);
+
+    const p1InPortal = isInPortalZone(player1);
+    const p2InPortal = isInPortalZone(player2);
+    const p3InPortal = isInPortalZone(player3);
+    const p4InPortal = isInPortalZone(player4);
+
+    if (!p1InPortal) player1.velocityY += gravity;
+    else player1.velocityY = 15;
+    if (!p2InPortal) player2.velocityY += gravity;
+    else player2.velocityY = 15;
+    if (!p3InPortal) player3.velocityY += gravity;
+    else player3.velocityY = 15;
+    if (!p4InPortal) player4.velocityY += gravity;
+    else player4.velocityY = 15;
+
+    if (ladderActive) {
+      handleLadder(player1);
+      handleLadder(player2);
+      handleLadder(player3);
+      handleLadder(player4);
+    }
+
+    // J1
+    player1.y += player1.velocityY;
+    if (checkCollision(player1, player2)) {
+      player1.y = p1PrevY;
+      if (player1.velocityY > 0) {
+        player1.y = player2.y - player1.height;
+        player1.velocityY = 5;
+        player1.onGround = true;
+      } else if (player1.velocityY < 0) {
+        player1.y = player2.y + player2.height;
+        player1.velocityY = 0;
+      }
+    }
+    if (checkCollision(player1, player3)) {
+      player1.y = p1PrevY;
+      if (player1.velocityY > 0) {
+        player1.y = player3.y - player1.height;
+        player1.velocityY = 5;
+        player1.onGround = true;
+      } else if (player1.velocityY < 0) {
+        player1.y = player3.y + player3.height;
+        player1.velocityY = 0;
+      }
+    }
+    if (checkCollision(player1, player4)) {
+      player1.y = p1PrevY;
+      if (player1.velocityY > 0) {
+        player1.y = player4.y - player1.height;
+        player1.velocityY = 5;
+        player1.onGround = true;
+      } else if (player1.velocityY < 0) {
+        player1.y = player4.y + player4.height;
+        player1.velocityY = 0;
+      }
+    }
+
+    player1.x += player1.velocityX;
+    if (checkCollision(player1, player2)) {
+      player1.x = p1PrevX;
+      player1.velocityX = 0;
+    }
+    if (checkCollision(player1, player3)) {
+      player1.x = p1PrevX;
+      player1.velocityX = 0;
+    }
+    if (checkCollision(player1, player4)) {
+      player1.x = p1PrevX;
+      player1.velocityX = 0;
+    }
+
+    // J2
+    player2.y += player2.velocityY;
+    if (checkCollision(player1, player2)) {
+      player2.y = p2PrevY;
+      if (player2.velocityY > 0) {
+        player2.y = player1.y - player2.height;
+        player2.velocityY = 0;
+        player2.onGround = true;
+      } else if (player2.velocityY < 0) {
+        player2.y = player1.y + player1.height;
+        player2.velocityY = 0;
+      }
+    }
+    if (checkCollision(player2, player3)) {
+      player2.y = p2PrevY;
+      if (player2.velocityY > 0) {
+        player2.y = player3.y - player2.height;
+        player2.velocityY = 0;
+        player2.onGround = true;
+      } else if (player2.velocityY < 0) {
+        player2.y = player3.y + player3.height;
+        player2.velocityY = 0;
+      }
+    }
+    if (checkCollision(player2, player4)) {
+      player2.y = p2PrevY;
+      if (player2.velocityY > 0) {
+        player2.y = player4.y - player2.height;
+        player2.velocityY = 0;
+        player2.onGround = true;
+      } else if (player2.velocityY < 0) {
+        player2.y = player4.y + player4.height;
+        player2.velocityY = 0;
+      }
+    }
+
+    player2.x += player2.velocityX;
+    if (checkCollision(player1, player2)) {
+      player2.x = p2PrevX;
+      player2.velocityX = 0;
+    }
+    if (checkCollision(player2, player3)) {
+      player2.x = p2PrevX;
+      player2.velocityX = 0;
+    }
+    if (checkCollision(player2, player4)) {
+      player2.x = p2PrevX;
+      player2.velocityX = 0;
+    }
+
+    // J3
+    player3.y += player3.velocityY;
+    if (checkCollision(player3, player1)) {
+      player3.y = p3PrevY;
+      if (player3.velocityY > 0) {
+        player3.y = player1.y - player3.height;
+        player3.velocityY = 0;
+        player3.onGround = true;
+      } else if (player3.velocityY < 0) {
+        player3.y = player1.y + player1.height;
+        player3.velocityY = 0;
+      }
+    }
+    if (checkCollision(player3, player2)) {
+      player3.y = p3PrevY;
+      if (player3.velocityY > 0) {
+        player3.y = player2.y - player3.height;
+        player3.velocityY = 0;
+        player3.onGround = true;
+      } else if (player3.velocityY < 0) {
+        player3.y = player2.y + player2.height;
+        player3.velocityY = 0;
+      }
+    }
+    if (checkCollision(player3, player4)) {
+      player3.y = p3PrevY;
+      if (player3.velocityY > 0) {
+        player3.y = player4.y - player3.height;
+        player3.velocityY = 0;
+        player3.onGround = true;
+      } else if (player3.velocityY < 0) {
+        player3.y = player4.y + player4.height;
+        player3.velocityY = 0;
+      }
+    }
+    player3.x += player3.velocityX;
+    if (checkCollision(player3, player1)) {
+      player3.x = p3PrevX;
+      player3.velocityX = 0;
+    }
+    if (checkCollision(player3, player2)) {
+      player3.x = p3PrevX;
+      player3.velocityX = 0;
+    }
+    if (checkCollision(player3, player4)) {
+      player3.x = p3PrevX;
+      player3.velocityX = 0;
+    }
+
+    // J4
+    player4.y += player4.velocityY;
+    if (checkCollision(player4, player1)) {
+      player4.y = p4PrevY;
+      if (player4.velocityY > 0) {
+        player4.y = player1.y - player4.height;
+        player4.velocityY = 0;
+        player4.onGround = true;
+      } else if (player4.velocityY < 0) {
+        player4.y = player1.y + player1.height;
+        player4.velocityY = 0;
+      }
+    }
+    if (checkCollision(player4, player2)) {
+      player4.y = p4PrevY;
+      if (player4.velocityY > 0) {
+        player4.y = player2.y - player4.height;
+        player4.velocityY = 0;
+        player4.onGround = true;
+      } else if (player4.velocityY < 0) {
+        player4.y = player2.y + player2.height;
+        player4.velocityY = 0;
+      }
+    }
+    if (checkCollision(player4, player3)) {
+      player4.y = p4PrevY;
+      if (player4.velocityY > 0) {
+        player4.y = player3.y - player4.height;
+        player4.velocityY = 0;
+        player4.onGround = true;
+      } else if (player4.velocityY < 0) {
+        player4.y = player3.y + player3.height;
+        player4.velocityY = 0;
+      }
+    }
+    player4.x += player4.velocityX;
+    if (checkCollision(player4, player1)) {
+      player4.x = p4PrevX;
+      player4.velocityX = 0;
+    }
+    if (checkCollision(player4, player2)) {
+      player4.x = p4PrevX;
+      player4.velocityX = 0;
+    }
+    if (checkCollision(player4, player3)) {
+      player4.x = p4PrevX;
+      player4.velocityX = 0;
+    }
+
+    checkPlatformCollision(player1);
+    checkPlatformCollision(player2);
+    checkPlatformCollision(player3);
+    checkPlatformCollision(player4);
+
+    if (!ladderActive && (checkCollision(player1, lever) || checkCollision(player2, lever) || checkCollision(player3, lever) || checkCollision(player4, lever))) {
+      ladderActive = true;
+    }
+  }
+
+  function isInPortalZone(player) {
+    return player.x + player.width > portal.x &&
+           player.x < portal.x + portal.width &&
+           player.y > baseHeight - 100;
+  }
+
+  function handleLadder(player) {
+    if (
+      player.x + player.width > ladder.x &&
+      player.x < ladder.x + ladder.width &&
+      player.y + player.height > ladder.y &&
+      player.y < ladder.y + ladder.height
+    ) {
+      if (keys[controls[1].jump] || keys[controls[1].jumpAlt] || keys[controls[2].jump] || keys[controls[2].jumpAlt] || keys[controls[3].jump] || keys[controls[3].jumpAlt] || keys[controls[4].jump] || keys[controls[4].jumpAlt]) {
+        player.velocityY = -5;
+      }
+      if (keys["ArrowDown"] || keys["KeyS"] || keys["Digit2"]) {
+        player.velocityY = 5;
+      }
+      if (!keys[controls[1].jump] && !keys[controls[1].jumpAlt] && !keys[controls[2].jump] && !keys[controls[2].jumpAlt] && !keys[controls[3].jump] && !keys[controls[3].jumpAlt] && !keys[controls[4].jump] && !keys[controls[4].jumpAlt] && !keys["ArrowDown"] && !keys["KeyS"] && !keys["Digit2"]) {
+        player.velocityY = 0;
+      }
+    }
+  }
+
+  function checkPlatformCollision(player) {
+    player.onGround = false;
+    const inPortalZone = player.x + player.width > portal.x && player.x < portal.x + portal.width;
+    if (inPortalZone && player.y > baseHeight) {
+      player.y = portal.topY;
+      player.velocityY = 15;
+      return;
+    }
+    for (const platform of platforms) {
+      if (platform.color === "orange") {
+        if (
+          player.y + player.height >= platform.y &&
+          player.y + player.height <= platform.y + platform.height &&
+          player.x >= platform.x &&
+          player.x + player.width <= platform.x + platform.width
+        ) {
+          player.y = platform.y - player.height;
+          player.velocityY = 0;
+          player.onGround = true;
+          break;
+        }
+      } else {
+        if (
+          player.y + player.height >= platform.y &&
+          player.y + player.height <= platform.y + platform.height &&
+          player.x + player.width > platform.x &&
+          player.x < platform.x + platform.width
+        ) {
+          player.y = platform.y - player.height;
+          player.velocityY = 0;
+          player.onGround = true;
+          break;
+        }
+      }
+    }
+    if (player.x < 0) player.x = 0;
+    if (player.x + player.width > baseWidth) player.x = baseWidth - player.width;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    const offsetX = (canvas.width / scale - baseWidth) / 2;
+    const offsetY = (canvas.height / scale - baseHeight) / 2;
+    ctx.translate(offsetX * scale, offsetY * scale);
+    ctx.scale(scale, scale);
+
+    platforms.forEach(platform => {
+      ctx.fillStyle = platform.color;
+      ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+    });
+
+    ctx.fillStyle = portal.effectColor;
+    ctx.fillRect(portal.x, 0, portal.width, baseHeight);
+
+    if (!ladderActive) {
+      ctx.fillStyle = lever.color;
+      ctx.fillRect(lever.x, lever.y, lever.width, lever.height);
+      ctx.save();
+      ctx.translate(lever.x + lever.width / 2, lever.y);
+      ctx.rotate(-Math.PI / 6);
+      ctx.fillStyle = lever.handleColor;
+      ctx.fillRect(-3, -20, 6, 20);
+      ctx.restore();
+    }
+
+    if (ladderActive) {
+      ctx.fillStyle = ladder.color;
+      ctx.fillRect(ladder.x, ladder.y, ladder.width, ladder.height);
+    }
+
+    ctx.fillStyle = player1.color;
+    ctx.fillRect(player1.x, player1.y, player1.width, player1.height);
+
+    ctx.fillStyle = player2.color;
+    ctx.fillRect(player2.x, player2.y, player2.width, player2.height);
+
+    ctx.fillStyle = player3.color;
+    ctx.fillRect(player3.x, player3.y, player3.width, player3.height);
+
+    ctx.fillStyle = player4.color;
+    ctx.fillRect(player4.x, player4.y, player4.width, player4.height);
+
+    ctx.restore();
+  }
+
+  function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+  }
+
+  function startGame() {
+    resizeCanvas();
+    gameLoop();
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTS SIO - Présentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index.html">Lydia Hocina</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">BTS SIO ▾</a>
+                <div class="dropdown-content">
+                    <a href="presentation.html" class="active">Présentation</a>
+                    <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+                    <a href="veille.html">Veille technologique</a>
+                </div>
+            </li>
+            <li><a href="parcours.html">Parcours</a></li>
+            <li><a href="stages.html">Stage / Alternance</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<section id="formation">
+    <div class="section-title">
+        <h1>BTS SIO</h1>
+        <p>Brevet de Technicien Supérieur Services Informatiques aux Organisations</p>
+    </div>
+
+    <div class="formation-card">
+        <h2>Qu’est-ce que le BTS SIO ?</h2>
+        <p>
+            Le BTS SIO (Services Informatiques aux Organisations) forme en deux ans 
+            aux métiers de l’informatique, avec deux spécialités : 
+            l’option <strong>SISR</strong> (infrastructures, systèmes et réseaux) 
+            et l’option <strong>SLAM</strong> (développement et applications métiers).
+        </p>
+        <p>
+            Ce diplôme permet soit une insertion professionnelle rapide, 
+            soit une poursuite d’études, comme mon <strong>Bachelor Concepteur Développeur d’Applications</strong>.
+        </p>
+    </div>
+
+    <div class="formation-card">
+        <h2>Option SISR (Solutions d’Infrastructure, Systèmes et Réseaux)</h2>
+        <p>
+            L’option SISR prépare aux métiers liés à la conception, la sécurisation 
+            et la maintenance des infrastructures réseaux et systèmes.
+        </p>
+        <h3>Débouchés possibles :</h3>
+        <ul>
+            <li>Technicien systèmes et réseaux</li>
+            <li>Administrateur systèmes et réseaux</li>
+            <li>Technicien réseau et télécoms</li>
+            <li>Technicien d’exploitation</li>
+            <li>Support systèmes et réseaux</li>
+        </ul>
+    </div>
+
+    <div class="formation-card">
+        <h2>Option SLAM (Solutions Logicielles et Applications Métiers)</h2>
+        <p>
+            L’option SLAM, que j’ai choisie, forme aux métiers du développement logiciel 
+            et des applications métiers : analyse des besoins, conception, développement 
+            et maintenance.
+        </p>
+        <h3>Débouchés possibles :</h3>
+        <ul>
+            <li>Développeur d’applications</li>
+            <li>Analyste programmeur</li>
+            <li>Chargé d’études informatiques</li>
+            <li>Développeur web / mobile</li>
+            <li>Technicien d’études informatiques</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+</script>
+</body>
+</html>

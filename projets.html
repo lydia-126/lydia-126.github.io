@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets - Hocina Lydia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index.html">Lydia Hocina</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">BTS SIO ▾</a>
+                <div class="dropdown-content">
+                    <a href="presentation.html">Présentation</a>
+                    <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+                    <a href="veille.html">Veille technologique</a>
+                </div>
+            </li>
+            <li><a href="parcours.html">Parcours</a></li>
+            <li><a href="stages.html">Stage / Alternance</a></li>
+            <li><a href="projets.html" class="active">Projets</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<section id="projets">
+    <div class="section-title">
+        <h1>Mes projets</h1>
+        <p>Une sélection de réalisations effectuées en formation et en autonomie.</p>
+    </div>
+
+    <div class="projet-card">
+        <h2>LYDS BEAUTY – Site e-commerce de cosmétiques</h2>
+        <p class="projet-meta">Projet de BTS SIO SLAM – Site dynamique de vente de produits de beauté.</p>
+        <p>
+            Développement d’un site e-commerce complet permettant la gestion des produits, 
+            la création de comptes clients, la gestion du panier et l’authentification.
+        </p>
+        <p>
+            Rédaction du cahier des charges, réalisation du modèle conceptuel de données (MCD) 
+            et mise en place de la base de données. L’interface est responsive et adaptée 
+            aux écrans mobiles.
+        </p>
+        <div class="technologies">
+            <span class="tech-badge">HTML</span>
+            <span class="tech-badge">CSS</span>
+            <span class="tech-badge">PHP</span>
+            <span class="tech-badge">SQL / MySQL</span>
+        </div>
+        <p>Documents de présentation du projet :</p>
+        <button class="btn" onclick="window.location.href='documents/SLAM-Fiche-presentation-situation (1).pdf'">
+            Fiche projet
+        </button>
+        <button class="btn" onclick="window.location.href='documents/capture.pdf'">
+            Captures d’écran
+        </button>
+    </div>
+
+    <div class="projet-card">
+        <h2>Application C# – Interface utilisateur & administrateur</h2>
+        <p class="projet-meta">Projet de développement en C# / .NET.</p>
+        <p>
+            Conception d’une application avec une interface différenciant les droits 
+            <strong>utilisateur</strong> et <strong>administrateur</strong> : gestion, consultation 
+            et mise à jour d’informations selon les rôles.
+        </p>
+        <div class="technologies">
+            <span class="tech-badge">C#</span>
+            <span class="tech-badge">.NET</span>
+            <span class="tech-badge">SQL</span>
+        </div>
+        <p>Document de présentation :</p>
+        <button class="btn" onclick="window.location.href='documents/SLAM-Fiche-presentation-situation (2).pdf'">
+            Fiche projet
+        </button>
+    </div>
+
+    <div class="projet-card">
+        <h2>Jeu de plateforme multijoueur</h2>
+        <p class="projet-meta">Projet web ludique – gestion des collisions, plateformes et portails.</p>
+        <p>
+            Réalisation d’un jeu de plateforme jouable à plusieurs sur le même clavier, 
+            avec configuration des touches, gestion des collisions, gravité, plateformes 
+            et éléments interactifs.
+        </p>
+        <div class="technologies">
+            <span class="tech-badge">HTML</span>
+            <span class="tech-badge">CSS</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">Canvas</span>
+        </div>
+        <a class="btn" href="jeu.html">Cliquer pour jouer</a>
+    </div>
+
+    <div class="projet-card">
+        <h2>Portfolio en ligne</h2>
+        <p class="projet-meta">Ce site – Présentation de mon parcours, projets et compétences.</p>
+        <p>
+            Création d’un portfolio moderne et responsive permettant de valoriser 
+            mon profil, mes expériences, mes projets de développement et ma veille technologique.
+        </p>
+        <div class="technologies">
+            <span class="tech-badge">HTML</span>
+            <span class="tech-badge">CSS</span>
+            <span class="tech-badge">Responsive design</span>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+</script>
+</body>
+</html>

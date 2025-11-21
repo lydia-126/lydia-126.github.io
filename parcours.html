@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours - Hocina Lydia</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index.html">Lydia Hocina</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">BTS SIO ▾</a>
+                <div class="dropdown-content">
+                    <a href="presentation.html">Présentation</a>
+                    <a href="documents/6- Annexe 6-1 - Tableau de synthèse - Epreuve E5 - BTS SIO 2025.pdf" target="_blank">Tableau de synthèse</a>
+                    <a href="veille.html">Veille technologique</a>
+                </div>
+            </li>
+            <li><a href="parcours.html" class="active">Parcours</a></li>
+            <li><a href="stages.html">Stage / Alternance</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-mobile">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<section id="parcours">
+    <div class="section-title">
+        <h1>Parcours</h1>
+        <p>Mon cheminement scolaire dans l’informatique et les sciences de l’ingénieur.</p>
+    </div>
+
+    <div class="parcours-card">
+        <h2>Bachelor Concepteur Développeur d’Applications</h2>
+        <p><strong>Période :</strong> 2025 – 2026</p>
+        <p><strong>Établissement :</strong> INSTA Paris</p>
+        <p>
+            Formation en alternance orientée <strong>développement d’applications web et mobiles</strong>, 
+            architecture logicielle, bases de données et méthodes de gestion de projet (Agile / Scrum). 
+            Elle me permet de consolider les compétences acquises en BTS SIO et de les appliquer en entreprise.
+        </p>
+    </div>
+
+    <div class="parcours-card">
+        <h2>BTS SIO (Services Informatiques aux Organisations) – Option SLAM</h2>
+        <p><strong>Période :</strong> 2023 – 2025</p>
+        <p><strong>Établissement :</strong> INSTA Paris</p>
+        <p>
+            Formation spécialisée dans le <strong>développement d’applications métiers</strong>, 
+            le développement web, la gestion de bases de données et la programmation (PHP, C#, SQL, JavaScript…). 
+            L’option SLAM (Solutions Logicielles et Applications Métiers) m’a permis de travailler sur des projets 
+            concrets pour répondre aux besoins des organisations.
+        </p>
+    </div>
+
+    <div class="parcours-card">
+        <h2>Licence 2 Sciences pour l’Ingénieur – Mention Automatique</h2>
+        <p><strong>Période :</strong> 2021 – 2023</p>
+        <p><strong>Établissement :</strong> Université de Béjaïa</p>
+        <p>
+            Formation axée sur l’<strong>automatique</strong>, les systèmes, l’analyse mathématique 
+            et les sciences de l’ingénieur. Elle m’a donné des bases solides en logique, 
+            modélisation et résolution de problèmes complexes.
+        </p>
+    </div>
+
+    <div class="parcours-card">
+        <h2>Baccalauréat Scientifique</h2>
+        <p><strong>Année d’obtention :</strong> 2021</p>
+        <p><strong>Spécialité :</strong> Mathématiques et Physique</p>
+        <p>
+            Le baccalauréat scientifique a marqué le début de mon orientation vers les sciences 
+            et l’informatique, en renforçant mes compétences en <strong>mathématiques</strong> 
+            et <strong>physique</strong>, qui me servent encore aujourd’hui dans le développement 
+            et la logique de programmation.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 - Portfolio de Lydia Hocina - Tous droits réservés</p>
+</footer>
+
+<script>
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+</script>
+</body>
+</html>
